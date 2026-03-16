@@ -4,6 +4,7 @@ import ArtworkForm, { Artist, ArtworkFormValues } from "@/components/ArtworkForm
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
+import { compressImageFile } from "@/lib/compress-img";
 
 type Dimensions = {
     width?: number,
@@ -42,8 +43,10 @@ export default function EditArtworkForm({ artwork }: EditArtworkFormProps) {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     async function uploadFile(file: File): Promise<string> {
+        const compressed = await compressImageFile(file);
+
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", compressed);
 
         const res = await fetch("/api/upload", {
             method: "POST",
