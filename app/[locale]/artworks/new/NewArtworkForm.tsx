@@ -191,7 +191,6 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                 pathname: '/artworks/[id]',
                 params: { id: created.id }
             });
-
         } catch (error) {
             console.error(error);
             setErrorMessage("Something went wrong. Please try again.")

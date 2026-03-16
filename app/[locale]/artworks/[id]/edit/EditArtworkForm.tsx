@@ -180,7 +180,6 @@ export default function EditArtworkForm({ artwork }: EditArtworkFormProps) {
                 pathname: '/artworks/[id]',
                 params: { id: artwork.id }
             });
-            router.refresh();
         } catch (error) {
             console.error(error);
             setErrorMessage(t("error.tryAgain"));

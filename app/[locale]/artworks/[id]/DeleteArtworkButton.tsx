@@ -33,7 +33,6 @@ export default function DeleteArtworkButton({ id, title }: DeleteArtworkButtonPr
             sessionStorage.setItem("artwork-toast", `${title} has been removed.`);
             setShowDialog(false);
             router.push('/');
-            router.refresh();
         } catch (err) {
             console.error(err);
             setError(err instanceof Error ? err.message : "Unexpected error.");
