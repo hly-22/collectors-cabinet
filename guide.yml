@@ -1,0 +1,54 @@
+
+Project Idea:
+    Artwork management system for private collectors. Would first be in web first and then there should be a mobile version as a companion app.
+
+Tech Stack:
+  Frontend:
+  - Next.js (React + Tailwind + UI libs)
+  Backend:
+  - Next.js API Routes (Node.js runtime)
+  - Prisma ORM
+  - Supabase (Postgres database)
+  - Cloudinary (for image storage/optimization)
+  Hosting:
+  - Vercel (for frontend + API deployment)
+  Languages:
+  - TypeScript (frontend + backend)
+  - SQL (database level)
+
+Data Model:
+  Artwork:
+    - id: Int - auto generated
+    - title: String
+    - artistId: Int - foreign key key to Artist
+    - artist: Artist - relation
+    - medium: String
+    - dimensions: {width: number, height: number, unit: "cm" | "in" }
+    - year: String
+    - mainImageUrl: String
+    - additionalImageUrls: String[]?
+    - certificationUrl: String
+    - status: [ArtworkStatus]
+    - location: String
+    - currency: [Currency]
+    - purchasePrice: Decimal
+    - notes: String?
+    - createdAt: DateTime - now
+    - updatedAt: DateTime - auto updated
+  Artist:
+    - id: Int - auto generated
+    - name: String
+    - description: String
+    - artworks: Artwork[]
+  ArtworkStatus: enum
+    - in home
+    - in storage
+    - on loan
+    - in exhibition
+  Currency:
+    - USD
+    - VND
+
+
+SUPABASE acc:
+  - password: Amanager734574

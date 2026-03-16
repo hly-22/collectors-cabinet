@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Artwork {
+  id                  Int           @id @default(autoincrement())
+  title               String
+  artistId            Int
+  artist              Artist        @relation(fields: [artistId], references: [id])
+
+  medium              String        // { width: number, height: number, unit: "cm" | "in" }
+  dimensions          Json
+  year                String
+
+  mainImageUrl        String?
+  additionalImageUrls String[]      @default([])
+  certificationUrl    String?
+
+  status              ArtworkStatus @default(IN_HOME)
+  location            String?
+
+  purchasePrice       Decimal?
+  currency            Currency      @default(USD)
+
+  notes               String?
+
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+}
+
+model Artist {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  artworks    Artwork[]
+}
+
+enum ArtworkStatus {
+  IN_HOME
+  IN_STORAGE
+  ON_LOAN
+  IN_EXHIBITION
+}
+
+enum Currency {
+  USD
+  VND
+}
