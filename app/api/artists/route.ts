@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { CreateArtistSchema } from "@/lib/schemas";
+import { revalidatePath } from "next/cache";
 
 // get all artists
 export async function GET() {
@@ -42,6 +43,7 @@ export async function POST(req: Request) {
                 description: data.description ?? null,
             }
         })
+        revalidatePath('/');
 
         return NextResponse.json(artist, { status: 201 });
     } catch (error) {

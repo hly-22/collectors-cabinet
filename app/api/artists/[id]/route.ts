@@ -1,6 +1,7 @@
 import cloudinary from "@/lib/cloudinary";
 import prisma from "@/lib/prisma";
 import { UpdateArtistSchema } from "@/lib/schemas";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -102,6 +103,8 @@ export async function PUT(
                 description: parsed.data.description ?? null,
             },
         });
+        revalidatePath('/');
+        revalidatePath(`/artists/${artistId}`);
 
         return NextResponse.json(updated);
     } catch (error) {
@@ -147,6 +150,7 @@ export async function DELETE(
         }
 
         await Promise.allSettled(cloudinaryDeletions);
+        revalidatePath('/');
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("[DELETE /api/artists/:id]", error);
