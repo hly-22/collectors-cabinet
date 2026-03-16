@@ -92,6 +92,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
             }
 
             router.push("/");
+            router.refresh();
         } catch {
             setDeleteError(t("error.tryAgain"));
         } finally {
