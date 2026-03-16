@@ -43,7 +43,7 @@ export async function POST(req: Request) {
                 description: data.description ?? null,
             }
         })
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
 
         return NextResponse.json(artist, { status: 201 });
     } catch (error) {

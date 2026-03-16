@@ -57,7 +57,7 @@ export async function POST(req: Request) {
             include: { artist: true },
         })
 
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
 
         return NextResponse.json(created, { status: 201 });
     } catch (error) {

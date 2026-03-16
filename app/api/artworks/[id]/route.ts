@@ -120,7 +120,7 @@ export async function PUT(
             },
             include: { artist: true },
         });
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
         revalidatePath(`/artworks/${artworkId}`);
         return NextResponse.json(updated, { status: 200 });
 
@@ -167,7 +167,7 @@ export async function DELETE(
         }
 
         await Promise.allSettled(cloudinaryDeletions);
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
 
         return NextResponse.json({ success: true });
     } catch (error) {

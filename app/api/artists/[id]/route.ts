@@ -103,7 +103,7 @@ export async function PUT(
                 description: parsed.data.description ?? null,
             },
         });
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
         revalidatePath(`/artists/${artistId}`);
 
         return NextResponse.json(updated);
@@ -150,7 +150,7 @@ export async function DELETE(
         }
 
         await Promise.allSettled(cloudinaryDeletions);
-        revalidatePath('/');
+        revalidatePath('/', 'layout');
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("[DELETE /api/artists/:id]", error);
