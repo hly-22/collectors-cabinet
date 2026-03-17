@@ -28,9 +28,11 @@
         "mainImage": "Failed to upload main image",
         "certification": "Failed to upload certification file",
         "additionalImages": "Failed to upload additional images",
+        "createArtwork": "Failed to create artwork",
         "updateArtwork": "Failed to update artwork",
         "tryAgain": "Something went wrong. Please try again.",
         "nameRequired": "Artist name is required.",
+        "createArtist": "Failed to create artist",
         "updateArtist": "Failed to update artist",
         "deleteArtist": "Failed to delete artist"
     },

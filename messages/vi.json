@@ -28,9 +28,11 @@
         "mainImage": "Không thể tải ảnh chính lên",
         "certification": "Không thể tải chứng nhận lên",
         "additionalImages": "Không thể tải các ảnh bổ sung lên",
+        "createArtwork": "Không thể tạo tác phẩm mới",
         "updateArtwork": "Không thể cập nhật tác phẩm",
         "tryAgain": "Đã xảy ra lỗi. Vui lòng thử lại.",
         "nameRequired": "Vui lòng điền tên nghệ sĩ.",
+        "createArtist": "Không thể tạo nghệ sĩ mới",
         "updateArtist": "Không thể cập nhật nghệ sĩ",
         "deleteArtist": "Không thể xoá nghệ sĩ"
     },

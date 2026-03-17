@@ -96,7 +96,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                     uploadedMainUrl = await uploadFile(values.mainImageFile);
                 } catch (err) {
                     console.error("Upload main image failed", err);
-                    setErrorMessage("Failed to upload main image");
+                    setErrorMessage(t("error.mainImage"));
                     return;
                 }
             }
@@ -108,7 +108,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                     uploadedCertUrl = await uploadFile(values.certificationFile);
                 } catch (err) {
                     console.error("Upload certification file failed", err);
-                    setErrorMessage("Failed to upload certification file");
+                    setErrorMessage(t("error.certification"));
                     return;
                 }
             }
@@ -122,7 +122,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                     );
                 } catch (err) {
                     console.error("Upload additional images failed", err);
-                    setErrorMessage("Failed to upload additional images");
+                    setErrorMessage(t("error.additionalImages"));
                     return;
                 }
             }
@@ -141,7 +141,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
 
                 if (!res.ok) {
                     const data = await res.json().catch(() => null);
-                    setErrorMessage(data?.error || "Failed to create artist");
+                    setErrorMessage(data?.error || t("error.createArtist"));
                     return;
                 }
 
@@ -182,7 +182,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
             if (!res.ok) {
                 const data = await res.json().catch(() => null);
                 console.error("Create artwork error", data);
-                setErrorMessage(data?.error || "Failed to create artwork");
+                setErrorMessage(data?.error || t("error.createArtwork"));
                 return;
             }
 
@@ -194,7 +194,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
             router.refresh();
         } catch (error) {
             console.error(error);
-            setErrorMessage("Something went wrong. Please try again.")
+            setErrorMessage(t("error.tryAgain"))
         } finally {
             setIsSubmitting(false);
         }
