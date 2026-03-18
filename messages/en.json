@@ -22,6 +22,7 @@
         "cancel": "Cancel",
         "saving": "Saving...",
         "saveChanges": "Save Changes",
+        "savingNote": "This may take a moment...",
         "clear": "Clear"
     },
     "error": {

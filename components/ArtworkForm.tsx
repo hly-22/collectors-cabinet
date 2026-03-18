@@ -3,6 +3,7 @@
 import { CircleX } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Spinner } from "./ui/spinner";
 
 export type Artist = {
     id: number,
@@ -148,6 +149,26 @@ export default function ArtworkForm({
     return (
         <form onSubmit={handleSubmit} className="space-y-6 border rounded-lg p-6">
 
+            {/* Prevent body scroll when submitting */}
+            {isSubmitting && (
+                <style>{`body { overflow: hidden; }`}</style>
+            )}
+
+            {/* Loading overlay when submitting */}
+            {isSubmitting && (
+                <div
+                    className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center"
+                    onWheel={(e) => e.preventDefault()}
+                    onTouchMove={(e) => e.preventDefault()}
+                >
+                    <div className="bg-white rounded-xl px-10 py-8 flex flex-col items-center gap-3 shadow-lg">
+                        <Spinner className="size-10" />
+                        <p className="text-sm font-medium text-gray-700">{t("actions.saving")}</p>
+                        <p className="text-xs text-gray-400">{t("actions.savingNote")}</p>
+                    </div>
+                </div>
+            )}
+
             {/* Artist */}
             <div className="space-y-1">
                 <label className="block text-sm font-medium">{t("form.artist")}</label>
@@ -215,7 +236,7 @@ export default function ArtworkForm({
             {/* Dimensions */}
             <div className="space-y-1">
                 <label className="block text-sm font-medium">{t("form.dimensions")}</label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 items-center">
                     <input
                         className="w-24 rounded border px-3 py-2 text-sm"
                         type="number"
@@ -225,6 +246,7 @@ export default function ArtworkForm({
                         value={width}
                         onChange={(e) => setWidth(e.target.value)}
                     />
+                    x
                     <input
                         className="w-24 rounded border px-3 py-2 text-sm"
                         type="number"
@@ -235,7 +257,7 @@ export default function ArtworkForm({
                         onChange={(e) => setHeight(e.target.value)}
                     />
                     <select
-                        className="w-24 rounded border px-3 py-2 text-sm"
+                        className="w-20 rounded border px-3 py-2 text-sm"
                         value={unit}
                         onChange={(e) => setUnit(e.target.value as "cm" | "in")}
                     >

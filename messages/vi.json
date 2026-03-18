@@ -22,6 +22,7 @@
         "cancel": "Hủy",
         "saving": "Đang lưu...",
         "saveChanges": "Lưu thay đổi",
+        "savingNote": "Có thể hơi lâu, vui lòng chờ...",
         "clear": "Xoá"
     },
     "error": {
