@@ -23,17 +23,6 @@ type ArtistDetailClientProps = {
     artworks: Artwork[];
 };
 
-function ArtistLoading() {
-
-    return (
-        <div className="fixed inset-0 z-20 bg-black/40 flex items-center justify-center">
-            <div className="w-full max-w-md py-10 px-10 bg-white border shadow-lg rounded-xl flex flex-col-reverse justify-center items-center gap-2">
-                <Spinner className="size-20 " />
-            </div>
-        </div>
-    )
-}
-
 export default function ArtistDetailClient({ artist, artworks }: ArtistDetailClientProps) {
 
     const t = useTranslations();
@@ -87,8 +76,8 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
     }
 
     function handleCancel() {
-        setName(artist.name);
-        setDescription(artist.description ?? "");
+        setName(displayName);
+        setDescription(displayDescription ?? "");
         setEditError(null);
         setIsEditing(false);
     }
@@ -119,12 +108,6 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
-
-            {/* Loading overlay when editing */}
-            {isSaving &&
-                <ArtistLoading />
-            }
-
             {/* Back link */}
             <div className="mb-6">
                 <Link
@@ -239,7 +222,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                                 <li key={artwork.id}>
                                     <Link
                                         href={{
-                                            pathname: '/artists/[id]',
+                                            pathname: '/artworks/[id]',
                                             params: { id: artwork.id }
                                         }}
                                         className="text-sm text-blue-600 hover:underline"
