@@ -359,7 +359,6 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                         >
                             + {t("nav.addArtwork")}
                         </Link>
-                        <LanguageToggle />
                     </div>
                 </header>
 
