@@ -36,6 +36,10 @@
         "updateArtist": "Failed to update artist",
         "deleteArtist": "Failed to delete artist"
     },
+    "toast": {
+        "artistDeleted": "{name} has been deleted",
+        "artistDeletedWithArtworks": "{name} and {count, plural, one {# artwork} other {# artworks}} have been deleted"
+    },
     "artwork": {
         "noImage": "No image",
         "noArtworks": "No artworks found.",

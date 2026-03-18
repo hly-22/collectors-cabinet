@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
-import { Spinner } from "@/components/ui/spinner";
 
 type Artist = {
     id: number;
@@ -94,14 +93,20 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
             if (!res.ok) {
                 const data = await res.json().catch(() => null);
                 setDeleteError(data?.error || t("error.deleteArtist"));
+                setIsDeleting(false);
                 return;
             }
 
+            const artworkCount = artworks.length;
+            const toastMessage = artworkCount === 0
+                ? t("toast.artistDeleted", { name: artist.name })
+                : t("toast.artistDeletedWithArtworks", { name: artist.name, count: artworkCount });
+
+            window.sessionStorage.setItem("artwork-toast", toastMessage);
             router.push("/");
             router.refresh();
         } catch {
             setDeleteError(t("error.tryAgain"));
-        } finally {
             setIsDeleting(false);
         }
     }

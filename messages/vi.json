@@ -36,6 +36,10 @@
         "updateArtist": "Không thể cập nhật nghệ sĩ",
         "deleteArtist": "Không thể xoá nghệ sĩ"
     },
+    "toast": {
+        "artistDeleted": "Đã xóa {name}.",
+        "artistDeletedWithArtworks": "Đã xóa {name} và {count} tác phẩm liên quan."
+    },
     "artwork": {
         "noImage": "Không có ảnh",
         "noArtworks": "Không tìm thấy tác phẩm.",
