@@ -7,7 +7,6 @@ import { Link } from "@/i18n/navigation";
 import ArtworkGrid from "./ArtworkGrid";
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, Menu, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
-import LanguageToggle from "./LanguageToggle";
 
 type Artist = {
     id: number,
