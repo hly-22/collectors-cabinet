@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 type Artist = {
     id: number;
@@ -22,6 +23,17 @@ type ArtistDetailClientProps = {
     artworks: Artwork[];
 };
 
+function ArtistLoading() {
+
+    return (
+        <div className="fixed inset-0 z-20 bg-black/40 flex items-center justify-center">
+            <div className="w-full max-w-md py-10 px-10 bg-white border shadow-lg rounded-xl flex flex-col-reverse justify-center items-center gap-2">
+                <Spinner className="size-20 " />
+            </div>
+        </div>
+    )
+}
+
 export default function ArtistDetailClient({ artist, artworks }: ArtistDetailClientProps) {
 
     const t = useTranslations();
@@ -34,6 +46,10 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
     const [description, setDescription] = useState(artist.description ?? "");
     const [isSaving, setIsSaving] = useState(false);
     const [editError, setEditError] = useState<string | null>(null);
+
+    // Optimistic UI
+    const [displayName, setDisplayName] = useState(artist.name);
+    const [displayDescription, setDisplayDescription] = useState(artist.description);
 
     // Delete state
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -60,8 +76,9 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                 return;
             }
 
+            setDisplayName(name.trim());
+            setDisplayDescription(description.trim() || null);
             setIsEditing(false);
-            router.refresh();
         } catch {
             setEditError(t("error.tryAgain"));
         } finally {
@@ -102,6 +119,12 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
+
+            {/* Loading overlay when editing */}
+            {isSaving &&
+                <ArtistLoading />
+            }
+
             {/* Back link */}
             <div className="mb-6">
                 <Link
@@ -123,7 +146,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                                 autoFocus
                             />
                         ) : (
-                            artist.name
+                            displayName
                         )}
                     </h1>
 
@@ -190,7 +213,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                         />
                     ) : (
                         <p className="text-sm text-gray-800 whitespace-pre-line">
-                            {artist.description || (
+                            {displayDescription || (
                                 <span className="text-gray-400">{t("artist.noDescription")}</span>
                             )}
                         </p>
