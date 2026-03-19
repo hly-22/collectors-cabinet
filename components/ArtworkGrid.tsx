@@ -99,7 +99,7 @@ export default function ArtworkGrid({
 
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 content-start">
-            {sorted.map((artwork) => (
+            {sorted.map((artwork, index) => (
                 <Link key={artwork.id} href={{ pathname: '/artworks/[id]', params: { id: artwork.id } }}>
                     <article className="overflow-hidden rounded-xl border bg-white shadow-sm hover:shadow-lg transition-shadow">
                         {artwork.mainImageUrl ? (
@@ -109,11 +109,12 @@ export default function ArtworkGrid({
                                 width={500}
                                 height={600}
                                 className="h-48 w-full object-cover"
-                                loading="lazy"
+                                loading={index === 0 ? "eager" : "lazy"}
+                                priority={index === 0}
                             />
                         ) : (
                             <div className="h-48 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
-                                {t("arwork.noImage")}
+                                {t("artwork.noImage")}
                             </div>
                         )}
                         <div className="space-y-2 p-4">
