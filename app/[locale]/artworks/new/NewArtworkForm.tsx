@@ -195,7 +195,6 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
         } catch (error) {
             console.error(error);
             setErrorMessage(t("error.tryAgain"))
-        } finally {
             setIsSubmitting(false);
         }
     }
