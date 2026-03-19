@@ -184,7 +184,6 @@ export default function EditArtworkForm({ artwork }: EditArtworkFormProps) {
         } catch (error) {
             console.error(error);
             setErrorMessage(t("error.tryAgain"));
-        } finally {
             setIsSubmitting(false);
         }
     }

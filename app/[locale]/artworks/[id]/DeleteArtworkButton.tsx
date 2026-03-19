@@ -77,7 +77,7 @@ export default function DeleteArtworkButton({ id, title }: DeleteArtworkButtonPr
                         <div className="mt-6 flex justify-end gap-3">
                             <button
                                 type="button"
-                                className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                                className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 disabled:bg-gray-100"
                                 onClick={() => setShowDialog(false)}
                                 disabled={pending}
                             >
