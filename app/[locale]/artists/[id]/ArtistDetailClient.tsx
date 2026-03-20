@@ -208,20 +208,14 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                     )}
                 </div>
 
-                {/* Artwork count */}
-                <div className="space-y-1">
+                {/* Artworks */}
+                <div className="space-y-2">
                     <label className="text-xs uppercase tracking-wide text-gray-400">
-                        {t("artist.artworks")}
+                        {t("artist.artworks")} ({artworks.length})
                     </label>
-                    <p className="text-sm text-gray-800">{t("artist.artworkCount", { count: artworks.length })}</p>
-                </div>
-
-                {/* Artwork list */}
-                {artworks.length > 0 && (
-                    <div className="space-y-1">
-                        <label className="text-xs uppercase tracking-wide text-gray-400">
-                            {t("artist.artworkList")}
-                        </label>
+                    {artworks.length === 0 ? (
+                        <p className="text-sm text-gray-400">{t("artist.noArtworks")}</p>
+                    ) : (
                         <ul className="space-y-1">
                             {artworks.map((artwork) => (
                                 <li key={artwork.id}>
@@ -237,8 +231,8 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
 
             {/* Delete confirmation dialog */}
