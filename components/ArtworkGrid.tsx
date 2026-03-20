@@ -109,8 +109,8 @@ export default function ArtworkGrid({
                                 width={500}
                                 height={600}
                                 className="h-48 w-full object-cover"
-                                loading={index === 0 ? "eager" : "lazy"}
-                                priority={index === 0}
+                                loading={index < 3 ? "eager" : "lazy"}
+                                priority={index < 3}
                             />
                         ) : (
                             <div className="h-48 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
