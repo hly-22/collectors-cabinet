@@ -109,7 +109,7 @@ export default function ArtworkGrid({
                                 width={500}
                                 height={600}
                                 className="h-48 w-full object-cover"
-                                loading={index < 3 ? "eager" : "lazy"}
+                                loading={index < 6 ? "eager" : "lazy"}
                                 priority={index < 3}
                             />
                         ) : (
