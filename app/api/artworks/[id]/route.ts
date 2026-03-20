@@ -108,8 +108,8 @@ export async function PUT(
                 title: data.title,
                 medium: data.medium,
                 year: data.year ?? existing.year,
-                mainImageUrl: data.mainImageUrl ?? undefined,
-                certificationUrl: data.certificationUrl ?? undefined,
+                mainImageUrl: data.mainImageUrl !== undefined ? data.mainImageUrl : existing.mainImageUrl,
+                certificationUrl: data.certificationUrl !== undefined ? data.certificationUrl : existing.certificationUrl,
                 additionalImageUrls: data.additionalImageUrls ?? existing.additionalImageUrls,
                 dimensions: data.dimensions ?? existing.dimensions ?? {},
                 status: data.status ?? existing.status,
@@ -120,6 +120,26 @@ export async function PUT(
             },
             include: { artist: true },
         });
+
+        // Clean up replaced/removed Cloudinary assets
+        const cloudinaryDeletions: Promise<void>[] = [];
+
+        if (existing.mainImageUrl && existing.mainImageUrl !== data.mainImageUrl) {
+            cloudinaryDeletions.push(deleteFromCloudinary(existing.mainImageUrl));
+        }
+        if (existing.certificationUrl && existing.certificationUrl !== data.certificationUrl) {
+            cloudinaryDeletions.push(deleteFromCloudinary(existing.certificationUrl));
+        }
+        if (data.additionalImageUrls) {
+            const removedUrls = (existing.additionalImageUrls as string[]).filter(
+                (url) => !data.additionalImageUrls!.includes(url)
+            );
+            for (const url of removedUrls) {
+                cloudinaryDeletions.push(deleteFromCloudinary(url));
+            }
+        }
+        await Promise.allSettled(cloudinaryDeletions);
+
         revalidatePath('/', 'layout');
         revalidatePath(`/artworks/${artworkId}`);
         return NextResponse.json(updated, { status: 200 });
