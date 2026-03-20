@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
+import { Edit } from "lucide-react";
 
 type Artist = {
     id: number;
@@ -123,9 +124,9 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
             </div>
 
             {/* Artist Info */}
-            <div className="rounded-lg border bg-white p-6 space-y-6">
+            <div className="rounded-lg border bg-white p-6 space-y-6 justify-center">
                 <div className="flex items-start justify-between">
-                    <h1 className="text-2xl font-semibold">
+                    <h1 className="text-2xl font-semibold w-full">
                         {isEditing ? (
                             <input
                                 className="w-full rounded border px-3 py-1.5 text-xl font-semibold focus:outline-none focus:ring-1 focus:ring-gray-300"
@@ -160,22 +161,17 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                                 </button>
                             </>
                         ) : (
-                            <>
-                                <button
-                                    type="button"
-                                    onClick={() => setIsEditing(true)}
-                                    className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                >
-                                    {t("actions.edit")}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowDeleteConfirm(true)}
-                                    className="rounded-md border border-red-200 px-4 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
-                                >
-                                    {t("actions.delete")}
-                                </button>
-                            </>
+                            <button
+                                type="button"
+                                onClick={() => setIsEditing(true)}
+                                className={`px-1.5 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 ${isEditing
+                                    ? "cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent text-slate-400"
+                                    : ""
+                                    }`}
+                            >
+                                {/* {t("actions.edit")} */}
+                                <Edit size={20} />
+                            </button>
                         )}
                     </div>
                 </div>
@@ -233,12 +229,25 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                         </ul>
                     )}
                 </div>
+
+                <div className="flex justify-center gap-4">
+
+                    <button
+                        type="button"
+                        onClick={() => setShowDeleteConfirm(true)}
+                        className="w-full max-w-50 rounded-md border border-red-200 px-4 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                    >
+                        {t("actions.delete")}
+                    </button>
+
+                </div>
             </div>
+
 
             {/* Delete confirmation dialog */}
             {showDeleteConfirm && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                    <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl space-y-4">
+                    <div className="w-full mx-10 max-w-md rounded-lg bg-white p-6 shadow-xl space-y-4">
                         <h2 className="text-lg font-semibold">
                             {t.rich("actions.deleteConfirmName", {
                                 name: artist.name,
