@@ -116,6 +116,7 @@
         "addMore": "Chọn thêm",
         "chooseFiles": "Chọn các file",
         "acceptedFormatFile": "Định dạng được chấp nhận: pdf, jpg, png, jpeg",
-        "acceptedFormatImage": "Định dạng được chấp nhận: jpg, png, jpeg"
+        "acceptedFormatImage": "Định dạng được chấp nhận: jpg, png, jpeg",
+        "pdfNotAllowed": "Vui lòng chọn file ảnh, không phải PDF."
     }
 }

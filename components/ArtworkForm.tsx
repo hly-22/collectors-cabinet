@@ -99,6 +99,7 @@ export default function ArtworkForm({
     const [existingMainImageUrl, setExistingMainImageUrl] = useState(initialData?.mainImageUrl ?? "");
     const [mainImageFile, setMainImageFile] = useState<File | null>(null);
     const [removeMainImage, setRemoveMainImage] = useState(false);
+    const [mainImageError, setMainImageError] = useState<string | null>(null);
 
     // Certification
     const [existingCertificationUrl, setExistingCertificationUrl] = useState(initialData?.certificationUrl ?? "");
@@ -108,6 +109,7 @@ export default function ArtworkForm({
     // Additional Images
     const [existingAdditionalUrls, setExistingAdditionalUrls] = useState<string[]>(initialData?.additionalImageUrls ?? []);
     const [newAdditionalFiles, setNewAdditionalFiles] = useState<File[]>([]);
+    const [additionalImagesError, setAdditionalImagesError] = useState<string | null>(null);
 
     const statusOptions = [
         { value: "IN_HOME", label: t("status.IN_HOME") },
@@ -349,7 +351,12 @@ export default function ArtworkForm({
 
             {/* Main image */}
             <div className="space-y-1">
-                <label className="block text-sm font-medium">{t("form.mainImage")}</label>
+                <div className="flex justify-between">
+                    <label className="block text-sm font-medium">{t("form.mainImage")}</label>
+                    {mainImageError && (
+                        <p className="text-sm text-red-600">{mainImageError}</p>
+                    )}
+                </div>
 
                 {/* Show existing main image in edit mode */}
                 {existingMainImageUrl && !removeMainImage && !mainImageFile && (
@@ -380,11 +387,18 @@ export default function ArtworkForm({
                 <input
                     type="file"
                     id="main-image-input"
-                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    accept="image/*, .pdf"
                     className="hidden"
                     onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
+                        if (file.type === "application/pdf") {
+                            setMainImageError(t("form.pdfNotAllowed"));
+                            e.target.value = "";
+                            return;
+                        }
+
+                        setMainImageError(null);
                         setMainImageFile(file);
                         setRemoveMainImage(false);
                         e.target.value = "";
@@ -423,9 +437,12 @@ export default function ArtworkForm({
 
             {/* Additional Images */}
             <div className="space-y-1">
-                <label className="block text-sm font-medium">
-                    {t("form.additionalImages")}
-                </label>
+                <div className="flex justify-between">
+                    <label className="block text-sm font-medium">{t("form.additionalImages")}</label>
+                    {additionalImagesError && (
+                        <p className="text-sm text-red-600">{additionalImagesError}</p>
+                    )}
+                </div>
 
                 {/* Existing saved additional images (edit mode) */}
                 {existingAdditionalUrls.length > 0 && (
@@ -464,11 +481,18 @@ export default function ArtworkForm({
                     id="additional-images-input"
                     type="file"
                     multiple
-                    accept="image/*, .heic"
+                    accept="image/*, .pdf"
                     className="hidden"
                     onChange={(e) => {
                         const files = Array.from(e.target.files ?? []);
                         if (files.length === 0) return;
+
+                        const hasPdf = files.some(file => file.type === "application/pdf");
+                        if (hasPdf) {
+                            setAdditionalImagesError(t("form.pdfNotAllowed"));
+                            e.target.value = "";
+                            return;
+                        }
                         setNewAdditionalFiles((prev) => [...prev, ...files]);
                         e.target.value = "";
                     }}
