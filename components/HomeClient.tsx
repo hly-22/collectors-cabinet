@@ -178,7 +178,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                             {t("sort.year")} {getSortIcon("year")}
                         </button>
                         {/* By price */}
-                        <button
+                        {/* <button
                             type="button"
                             onClick={() => handleSortClick("price")}
                             className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${sortField === "price"
@@ -187,7 +187,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                                 }`}
                         >
                             {t("sort.price")} {getSortIcon("price")}
-                        </button>
+                        </button> */}
 
                         {/* Status filter dropdown */}
                         <div className="relative">
@@ -287,7 +287,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                             {t("sort.year")} {getSortIcon("year")}
                         </button>
                         {/* By price */}
-                        <button
+                        {/* <button
                             type="button"
                             onClick={() => handleSortClick("price")}
                             className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${sortField === "price"
@@ -296,7 +296,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                                 }`}
                         >
                             {t("sort.price")} {getSortIcon("price")}
-                        </button>
+                        </button> */}
 
                         {/* Status filter dropdown */}
                         <div className="relative">
