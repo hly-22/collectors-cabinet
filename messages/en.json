@@ -93,6 +93,7 @@
         "title": "Title",
         "medium": "Medium",
         "year": "Year",
+        "mediumPlaceholder": "Oil on canvas, watercolor, etc.",
         "dimensions": "Dimensions",
         "width": "Width",
         "height": "Height",

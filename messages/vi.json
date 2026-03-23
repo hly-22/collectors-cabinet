@@ -93,6 +93,7 @@
         "title": "Tên tác phẩm",
         "medium": "Chất liệu",
         "year": "Năm",
+        "mediumPlaceholder": "Sơn dầu, màu nước, v.v.",
         "dimensions": "Kích thước",
         "width": "Chiều rộng",
         "height": "Chiều cao",

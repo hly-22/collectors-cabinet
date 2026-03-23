@@ -220,7 +220,7 @@ export default function ArtworkForm({
                         className="w-full rounded border px-3 py-2 text-sm"
                         value={medium}
                         onChange={(e) => setMedium(e.target.value)}
-                        placeholder="Oil on canvas"
+                        placeholder={t("form.mediumPlaceholder")}
                         required
                     />
                 </div>
@@ -266,9 +266,9 @@ export default function ArtworkForm({
                         <option value="cm">cm</option>
                         <option value="in">in</option>
                     </select>
-                    <p className="text-xs text-gray-500">
+                    {/* <p className="text-xs text-gray-500">
                         {t("form.dimensionsNote")}
-                    </p>
+                    </p> */}
                 </div>
             </div>
 
@@ -566,33 +566,46 @@ export default function ArtworkForm({
             </div>
 
             {/* Price + Currency */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-1">
-                    <label className="block text-sm font-medium">{t("form.currency")}</label>
+            <div className="space-y-1">
+                <label className="block text-sm font-medium">{t("form.purchasePrice")}</label>
+
+                {/* Mobile: currency w-1/3 + price takes rest */}
+                <div className="flex gap-2 sm:hidden">
+                    <select
+                        className="w-1/3 shrink-0 rounded border px-3 py-2 text-sm"
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                    >
+                        {currencyOptions.map((c) => (
+                            <option key={c.value} value={c.value}>{c.label}</option>
+                        ))}
+                    </select>
+                    <input
+                        className="flex-1 min-w-0 rounded border px-3 py-2 text-sm"
+                        type="text"
+                        value={purchasePrice}
+                        onChange={(e) => setPurchasePrice(e.target.value)}
+                        placeholder={currency === "VND" ? "e.g. 1,200,000" : "e.g. 12,000.00 or 12000,00"}
+                    />
+                </div>
+
+                {/* Desktop: grid layout */}
+                <div className="hidden sm:grid sm:gap-4 grid-cols-2">
                     <select
                         className="w-full rounded border px-3 py-2 text-sm"
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
                     >
                         {currencyOptions.map((c) => (
-                            <option key={c.value} value={c.value}>
-                                {c.label}
-                            </option>
+                            <option key={c.value} value={c.value}>{c.label}</option>
                         ))}
                     </select>
-                </div>
-                <div className="space-y-1">
-                    <label className="block text-sm font-medium">{t("form.purchasePrice")}</label>
                     <input
                         className="w-full rounded border px-3 py-2 text-sm"
                         type="text"
                         value={purchasePrice}
                         onChange={(e) => setPurchasePrice(e.target.value)}
-                        placeholder={
-                            currency === "VND"
-                                ? "e.g. 1,200,000"
-                                : "e.g. 12,000.00 or 12000,00"
-                        }
+                        placeholder={currency === "VND" ? "e.g. 1,200,000" : "e.g. 12,000.00 or 12000,00"}
                     />
                 </div>
             </div>
@@ -602,7 +615,7 @@ export default function ArtworkForm({
                 <label className="block text-sm font-medium">{t("form.notes")}</label>
                 <textarea
                     className="w-full rounded border px-3 py-2 text-sm"
-                    rows={3}
+                    rows={2}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="..."
