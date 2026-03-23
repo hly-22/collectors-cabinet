@@ -125,6 +125,33 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
 
             {/* Artist Info */}
             <div className="rounded-lg border bg-white p-6 space-y-6 justify-center">
+                {isEditing && (
+                    <>
+                        <div className="flex items-center justify-center gap-4">
+                            <button
+                                type="button"
+                                onClick={handleSave}
+                                disabled={isSaving || !name.trim()}
+                                className="rounded-md bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+                            >
+                                {isSaving ? t("actions.saving") : t("actions.saveChanges")}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleCancel}
+                                disabled={isSaving}
+                                className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                {t("actions.cancel")}
+                            </button>
+                        </div>
+                        <div className="my-0">
+                            <label className="text-xs uppercase tracking-wide text-gray-400">
+                                {t("wizard.artistName")}
+                            </label>
+                        </div>
+                    </>
+                )}
                 <div className="flex items-start justify-between">
                     <h1 className="text-2xl font-semibold w-full">
                         {isEditing ? (
@@ -138,29 +165,10 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                             displayName
                         )}
                     </h1>
-
                     {/* Edit/Save/Cancel button */}
                     <div className="flex items-center gap-2 ml-4 shrink-0">
-                        {isEditing ? (
-                            <>
-                                <button
-                                    type="button"
-                                    onClick={handleSave}
-                                    disabled={isSaving || !name.trim()}
-                                    className="rounded-md bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-                                >
-                                    {isSaving ? t("actions.saving") : t("actions.saveChanges")}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleCancel}
-                                    disabled={isSaving}
-                                    className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                >
-                                    {t("actions.cancel")}
-                                </button>
-                            </>
-                        ) : (
+
+                        {!isEditing && (
                             <button
                                 type="button"
                                 onClick={() => setIsEditing(true)}
@@ -230,20 +238,21 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                     )}
                 </div>
 
-                <div className="flex justify-center gap-4">
+                {!isEditing && (
+                    <div className="flex justify-center gap-4">
+                        <button
+                            type="button"
+                            onClick={() => setShowDeleteConfirm(true)}
+                            disabled={isEditing}
+                            className={`w-full max-w-50 rounded-md border  px-4 py-1.5 text-sm font-medium ${isEditing
+                                ? "bg-gray-100 hover:bg-gray-100 cursor-not-allowed text-gray-400"
+                                : "border-red-200 text-red-600 hover:bg-red-50"}`}
+                        >
+                            {t("actions.delete")}
+                        </button>
 
-                    <button
-                        type="button"
-                        onClick={() => setShowDeleteConfirm(true)}
-                        disabled={isEditing}
-                        className={`w-full max-w-50 rounded-md border  px-4 py-1.5 text-sm font-medium ${isEditing
-                            ? "bg-gray-100 hover:bg-gray-100 cursor-not-allowed text-gray-400"
-                            : "border-red-200 text-red-600 hover:bg-red-50"}`}
-                    >
-                        {t("actions.delete")}
-                    </button>
-
-                </div>
+                    </div>
+                )}
             </div>
 
 
