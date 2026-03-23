@@ -235,7 +235,10 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                     <button
                         type="button"
                         onClick={() => setShowDeleteConfirm(true)}
-                        className="w-full max-w-50 rounded-md border border-red-200 px-4 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                        disabled={isEditing}
+                        className={`w-full max-w-50 rounded-md border  px-4 py-1.5 text-sm font-medium ${isEditing
+                            ? "bg-gray-100 hover:bg-gray-100 cursor-not-allowed text-gray-400"
+                            : "border-red-200 text-red-600 hover:bg-red-50"}`}
                     >
                         {t("actions.delete")}
                     </button>
