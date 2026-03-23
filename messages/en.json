@@ -104,7 +104,7 @@
         "additionalImages": "Additional Images (optional)",
         "image": "Image {index}",
         "status": "Status",
-        "location": "Location",
+        "location": "Location (optional)",
         "purchasePrice": "Purchase Price",
         "currency": "Currency",
         "notes": "Notes (optional)",

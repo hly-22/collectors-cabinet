@@ -104,7 +104,7 @@
         "additionalImages": "Ảnh bổ sung (tùy chọn)",
         "image": "Ảnh {index}",
         "status": "Trạng thái",
-        "location": "Vị trí",
+        "location": "Vị trí (tuỳ chọn)",
         "purchasePrice": "Giá mua",
         "currency": "Tiền tệ",
         "notes": "Ghi chú (tuỳ chọn)",
