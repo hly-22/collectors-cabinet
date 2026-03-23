@@ -122,14 +122,16 @@ export default function ArtworkGrid({
                             <p className="text-sm text-slate-600">
                                 {artwork.artist.name} • {artwork.year}
                             </p>
-                            {artwork.location && (
-                                <p className="text-sm text-slate-500 truncate">
-                                    {t("artwork.location")}: {artwork.location}
-                                </p>
-                            )}
-                            <span className={`inline-flex rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide ${getStatusStyle(artwork.status)}`}>
-                                {t(`status.${artwork.status}`)}
-                            </span>
+                            <p className="space-x-3">
+                                <span className={`rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide ${getStatusStyle(artwork.status)}`}>
+                                    {t(`status.${artwork.status}`)}
+                                </span>
+                                {artwork.location && (
+                                    <span className="text-sm text-slate-500 truncate">
+                                        {t("artwork.location")}: {artwork.location}
+                                    </span>
+                                )}
+                            </p>
                         </div>
                     </article>
                 </Link>
