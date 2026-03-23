@@ -115,8 +115,8 @@
         "chooseFile": "Choose File",
         "addMore": "Add More",
         "chooseFiles": "Choose Files",
-        "acceptedFormatFile": "Accepted format: pdf, jpg, png, jpeg",
-        "acceptedFormatImage": "Accepted format: jpg, png, jpeg",
+        "acceptedFormatFile": "pdf, jpg, png, jpeg",
+        "acceptedFormatImage": "jpg, png, jpeg",
         "pdfNotAllowed": "Please select an image file, not a PDF."
     }
 }

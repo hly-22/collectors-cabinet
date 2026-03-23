@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleX } from "lucide-react";
+import { CircleX, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Spinner } from "./ui/spinner";
@@ -321,11 +321,12 @@ export default function ArtworkForm({
                 <div className="border rounded flex items-center">
                     <label
                         htmlFor="cert-file-input"
-                        className="flex-none cursor-pointer rounded-l bg-gray-800 px-4 py-2 text-sm text-white hover:bg-gray-900"
+                        className="h-full cursor-pointer rounded-l bg-gray-800 px-4 py-2.5 text-sm text-white hover:bg-gray-900"
                     >
-                        {existingCertificationUrl && !removeCertification
+                        {/* {existingCertificationUrl && !removeCertification
                             ? t("form.replaceFile")
-                            : t("form.chooseFile")}
+                            : t("form.chooseFile")} */}
+                        <Upload size={16} />
                     </label>
                     {certificationFile ? (
                         <>
@@ -407,11 +408,12 @@ export default function ArtworkForm({
                 <div className="border rounded flex items-center">
                     <label
                         htmlFor="main-image-input"
-                        className="flex-none cursor-pointer rounded-l bg-gray-800 px-4 py-2 text-sm text-white hover:bg-gray-900"
+                        className="h-full cursor-pointer rounded-l bg-gray-800 px-4 py-2.5 text-sm text-white hover:bg-gray-900"
                     >
-                        {existingMainImageUrl && !removeMainImage
+                        {/* {existingMainImageUrl && !removeMainImage
                             ? t("form.replaceImage")
-                            : t("form.chooseFile")}
+                            : t("form.chooseFile")} */}
+                        <Upload size={16} />
                     </label>
                     {mainImageFile ? (
                         <>
@@ -500,9 +502,10 @@ export default function ArtworkForm({
                 <div className="border rounded flex">
                     <label
                         htmlFor="additional-images-input"
-                        className="cursor-pointer rounded-l bg-gray-800 px-4 py-2 text-sm text-white hover:bg-gray-900"
+                        className="h-full cursor-pointer rounded-l bg-gray-800 px-4 py-2.5 text-sm text-white hover:bg-gray-900"
                     >
-                        {isEditMode ? t("form.addMore") : t("form.chooseFiles")}
+                        {/* {isEditMode ? t("form.addMore") : t("form.chooseFiles")} */}
+                        <Upload size={16} />
                     </label>
                     <p className="inline-flex text-sm text-gray-500 px-3 py-2">
                         {t("form.acceptedFormatImage")}
