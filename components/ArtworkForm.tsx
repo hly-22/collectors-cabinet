@@ -565,20 +565,6 @@ export default function ArtworkForm({
             {/* Price + Currency */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
-                    <label className="block text-sm font-medium">{t("form.purchasePrice")}</label>
-                    <input
-                        className="w-full rounded border px-3 py-2 text-sm"
-                        type="text"
-                        value={purchasePrice}
-                        onChange={(e) => setPurchasePrice(e.target.value)}
-                        placeholder={
-                            currency === "VND"
-                                ? "e.g. 1,200,000"
-                                : "e.g. 12,000.00 or 12000,00"
-                        }
-                    />
-                </div>
-                <div className="space-y-1">
                     <label className="block text-sm font-medium">{t("form.currency")}</label>
                     <select
                         className="w-full rounded border px-3 py-2 text-sm"
@@ -591,6 +577,20 @@ export default function ArtworkForm({
                             </option>
                         ))}
                     </select>
+                </div>
+                <div className="space-y-1">
+                    <label className="block text-sm font-medium">{t("form.purchasePrice")}</label>
+                    <input
+                        className="w-full rounded border px-3 py-2 text-sm"
+                        type="text"
+                        value={purchasePrice}
+                        onChange={(e) => setPurchasePrice(e.target.value)}
+                        placeholder={
+                            currency === "VND"
+                                ? "e.g. 1,200,000"
+                                : "e.g. 12,000.00 or 12000,00"
+                        }
+                    />
                 </div>
             </div>
 
