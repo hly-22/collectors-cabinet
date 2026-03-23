@@ -380,7 +380,7 @@ export default function ArtworkForm({
                 <input
                     type="file"
                     id="main-image-input"
-                    accept="image/*"
+                    accept="image/*, .heic"
                     className="hidden"
                     onChange={(e) => {
                         const file = e.target.files?.[0];
@@ -464,7 +464,7 @@ export default function ArtworkForm({
                     id="additional-images-input"
                     type="file"
                     multiple
-                    accept="image/*"
+                    accept="image/*, .heic"
                     className="hidden"
                     onChange={(e) => {
                         const files = Array.from(e.target.files ?? []);
