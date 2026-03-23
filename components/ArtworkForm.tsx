@@ -329,7 +329,7 @@ export default function ArtworkForm({
                     </label>
                     {certificationFile ? (
                         <>
-                            <span className="grow text-sm px-3 py-2">
+                            <span className="grow text-sm px-3 py-2 truncate">
                                 {certificationFile.name}
                             </span>
                             <button
