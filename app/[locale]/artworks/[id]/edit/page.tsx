@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import EditArtworkForm from "./EditArtworkForm";

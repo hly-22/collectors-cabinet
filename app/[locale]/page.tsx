@@ -1,5 +1,5 @@
 import HomeClient from "@/components/HomeClient";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export default async function Home() {
   const [artworks, artists] = await Promise.all([

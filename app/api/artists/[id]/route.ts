@@ -1,5 +1,5 @@
 import cloudinary from "@/lib/cloudinary";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { UpdateArtistSchema } from "@/lib/schemas";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
