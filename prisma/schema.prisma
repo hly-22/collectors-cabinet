@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider   = "prisma-client"
+  output     = "../generated/prisma"
   engineType = "client"
 }
 
@@ -15,36 +15,39 @@ datasource db {
 }
 
 model Artwork {
-  id                  Int           @id @default(autoincrement())
+  id                  String        @id @default(uuid())
   title               String
-  artistId            Int
-  artist              Artist        @relation(fields: [artistId], references: [id])
-
-  medium              String        // { width: number, height: number, unit: "cm" | "in" }
-  dimensions          Json
+  artistId            String
+  medium              String?
+  dimensions          Json? // { width: number, height: number, unit: "cm" | "in" }
   year                String
-
   mainImageUrl        String?
   additionalImageUrls String[]      @default([])
-  certificationUrl    String?
-
+  certificationUrl    String
   status              ArtworkStatus @default(IN_HOME)
   location            String?
-
   purchasePrice       Decimal?
   currency            Currency      @default(USD)
-
   notes               String?
 
-  createdAt           DateTime      @default(now())
-  updatedAt           DateTime      @updatedAt
+  artist Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("artworks")
 }
 
 model Artist {
-  id          Int        @id @default(autoincrement())
+  id          String    @id @default(uuid())
   name        String
   description String?
   artworks    Artwork[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("artists")
 }
 
 enum ArtworkStatus {
