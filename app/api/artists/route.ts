@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { CreateArtistSchema } from "@/lib/schemas";
+import { CreateArtistSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
 
 // get all artists

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import { CreateArtworkSchema } from "@/lib/schemas";
+import { CreateArtworkSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
 
 // Get all artworks

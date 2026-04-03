@@ -1,6 +1,6 @@
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
-import { UpdateArtworkSchema } from "@/lib/schemas";
+import { UpdateArtworkSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import z from "zod";
