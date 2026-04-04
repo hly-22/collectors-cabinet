@@ -1,4 +1,4 @@
-import cloudinary from "@/lib/cloudinary";
+import { deleteFromCloudinary } from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { UpdateArtistSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
@@ -7,48 +7,20 @@ import { z } from "zod";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-// Extract public_id from Cloudinary URL
-function extractPublicId(url: string): string {
-    const uploadIndex = url.indexOf("/upload/");
-    if (uploadIndex === -1) return "";
-
-    let after = url.slice(uploadIndex + "/upload/".length);
-    after = after.replace(/^v\d+\//, "");
-
-    const dotIndex = after.lastIndexOf(".");
-    if (dotIndex !== -1) {
-        after = after.slice(0, dotIndex);
-    }
-
-    return after;
-}
-
-async function deleteFromCloudinary(url: string) {
-    const publicId = extractPublicId(url);
-    if (!publicId) return;
-
-    try {
-        await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
-    } catch (err) {
-        console.error(`Failed to delete Cloudinary asset: ${publicId}`, err);
-    }
-}
-
 // GET artist by id
 export async function GET(
     _req: Request,
     { params }: RouteParams,
 ) {
     const { id } = await params;
-    const artistId = Number(id);
 
-    if (Number.isNaN(artistId)) {
-        return NextResponse.json({ error: "Invalid id" }, { status: 400 });
-    }
+    if (!id) {
+        return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
+    };
 
     try {
         const artist = await prisma.artist.findUnique({
-            where: { id: artistId },
+            where: { id },
             include: { artworks: true },
         });
 
@@ -70,11 +42,10 @@ export async function PUT(
     { params }: RouteParams,
 ) {
     const { id } = await params;
-    const artistId = Number(id);
 
-    if (Number.isNaN(artistId)) {
-        return NextResponse.json({ error: "Invalid id" }, { status: 400 });
-    }
+    if (!id) {
+        return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
+    };
 
     try {
         const body = await req.json();
@@ -89,7 +60,7 @@ export async function PUT(
         }
 
         const existing = await prisma.artist.findUnique({
-            where: { id: artistId },
+            where: { id },
         });
 
         if (!existing) {
@@ -97,14 +68,14 @@ export async function PUT(
         }
 
         const updated = await prisma.artist.update({
-            where: { id: artistId },
+            where: { id },
             data: {
                 name: parsed.data.name,
-                description: parsed.data.description ?? null,
+                description: parsed.data.description !== undefined ? parsed.data.description : existing.description,
             },
         });
         revalidatePath('/', 'layout');
-        revalidatePath(`/artists/${artistId}`);
+        revalidatePath(`/artists/${id}`);
 
         return NextResponse.json(updated);
     } catch (error) {
@@ -119,16 +90,15 @@ export async function DELETE(
     { params }: RouteParams
 ) {
     const { id } = await params;
-    const artistId = Number(id);
 
-    if (Number.isNaN(artistId)) {
-        return NextResponse.json({ error: "Invalid id" }, { status: 400 });
-    }
+    if (!id) {
+        return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
+    };
 
     try {
         // Fetch artist with all artworks and their image URLs
         const artist = await prisma.artist.findUnique({
-            where: { id: artistId },
+            where: { id },
             include: { artworks: true },
         });
 
@@ -136,8 +106,7 @@ export async function DELETE(
 
         // Delete artist + all artworks from DB (cascade)
         // We delete the artist which cascades to artworks via Prisma relation
-        await prisma.artwork.deleteMany({ where: { artistId } });
-        await prisma.artist.delete({ where: { id: artistId } });
+        await prisma.artist.delete({ where: { id } });
 
         // Collect all Cloudinary URLs from all artworks
         const cloudinaryDeletions: Promise<void>[] = [];

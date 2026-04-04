@@ -1,4 +1,4 @@
-import cloudinary from "@/lib/cloudinary";
+import { deleteFromCloudinary } from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { UpdateArtworkSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
@@ -7,48 +7,16 @@ import z from "zod";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-// Extract public_id from Cloudinary URL
-function extractPublicId(url: string): string {
-    const uploadIndex = url.indexOf("/upload/");
-    if (uploadIndex === -1) return "";
-
-    let after = url.slice(uploadIndex + "/upload/".length);
-
-    // Remove version segment if presented
-    after = after.replace(/^v\d+\//, "");
-
-    // Remove file extension
-    const dotIndex = after.lastIndexOf(".");
-    if (dotIndex !== -1) {
-        after = after.slice(0, dotIndex);
-    }
-
-    return after;
-}
-
-// Delete a single asset from Cloudinary, detect if it's raw (PDF) or image
-async function deleteFromCloudinary(url: string) {
-    const publicId = extractPublicId(url);
-    if (!publicId) return;
-
-    try {
-        await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
-    } catch (error) {
-        console.error(`Failed to delete Cloudinary asset: ${publicId}`, error);
-    }
-}
-
-
 // Get artwork by ID
 export async function GET(
     _req: Request,
     { params }: RouteParams,
 ) {
-    const { id: idString } = await params;
-    const id = Number(idString);
+    const { id } = await params;
+    // const id = Number(idString);
 
-    if (Number.isNaN(id)) {
-        return NextResponse.json({ error: "Invalid id" }, { status: 400 });
+    if (!id) {
+        return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
     }
 
     try {
@@ -75,10 +43,9 @@ export async function PUT(
 ) {
     try {
         const { id } = await params;
-        const artworkId = Number(id);
 
-        if (Number.isNaN(artworkId)) {
-            return NextResponse.json({ error: "Invalid artwork ID" }, { status: 400 });
+        if (!id) {
+            return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
         };
 
         const body = await req.json();
@@ -95,7 +62,7 @@ export async function PUT(
         const data = parsed.data;
 
         const existing = await prisma.artwork.findUnique({
-            where: { id: artworkId },
+            where: { id },
         });
 
         if (!existing) {
@@ -103,13 +70,13 @@ export async function PUT(
         }
 
         const updated = await prisma.artwork.update({
-            where: { id: artworkId },
+            where: { id },
             data: {
                 title: data.title,
-                medium: data.medium,
+                medium: data.medium ?? existing.medium,
                 year: data.year ?? existing.year,
                 mainImageUrl: data.mainImageUrl !== undefined ? data.mainImageUrl : existing.mainImageUrl,
-                certificationUrl: data.certificationUrl !== undefined ? data.certificationUrl : existing.certificationUrl,
+                certificationUrl: data.certificationUrl ?? existing.certificationUrl,
                 additionalImageUrls: data.additionalImageUrls ?? existing.additionalImageUrls,
                 dimensions: data.dimensions ?? existing.dimensions ?? {},
                 status: data.status ?? existing.status,
@@ -124,10 +91,10 @@ export async function PUT(
         // Clean up replaced/removed Cloudinary assets
         const cloudinaryDeletions: Promise<void>[] = [];
 
-        if (existing.mainImageUrl && existing.mainImageUrl !== data.mainImageUrl) {
+        if (existing.mainImageUrl && data.mainImageUrl !== undefined && existing.mainImageUrl !== data.mainImageUrl) {
             cloudinaryDeletions.push(deleteFromCloudinary(existing.mainImageUrl));
         }
-        if (existing.certificationUrl && existing.certificationUrl !== data.certificationUrl) {
+        if (existing.certificationUrl && data.certificationUrl !== undefined && existing.certificationUrl !== data.certificationUrl) {
             cloudinaryDeletions.push(deleteFromCloudinary(existing.certificationUrl));
         }
         if (data.additionalImageUrls) {
@@ -141,7 +108,7 @@ export async function PUT(
         await Promise.allSettled(cloudinaryDeletions);
 
         revalidatePath('/', 'layout');
-        revalidatePath(`/artworks/${artworkId}`);
+        revalidatePath(`/artworks/${id}`);
         return NextResponse.json(updated, { status: 200 });
 
     } catch (error) {
@@ -158,16 +125,15 @@ export async function DELETE(
     _req: Request,
     { params }: RouteParams,
 ) {
-    const { id: idString } = await params;
-    const artworkId = Number(idString);
+    const { id } = await params;
 
-    if (Number.isNaN(artworkId)) {
-        return NextResponse.json({ error: "Invalid id" }, { status: 400 });
-    }
+    if (!id) {
+        return NextResponse.json({ error: "ID does not exist" }, { status: 400 });
+    };
 
     try {
         const artwork = await prisma.artwork.findUnique({
-            where: { id: artworkId },
+            where: { id },
         });
 
         if (!artwork) {
@@ -175,9 +141,9 @@ export async function DELETE(
         }
 
         // Delete DB record first
-        await prisma.artwork.delete({ where: { id: artworkId } });
+        await prisma.artwork.delete({ where: { id } });
 
-        // Then delete assests one by one
+        // Then delete assests one by one in Cloudinary
         const cloudinaryDeletions: Promise<void>[] = [];
 
         if (artwork.mainImageUrl) cloudinaryDeletions.push(deleteFromCloudinary(artwork.mainImageUrl));
