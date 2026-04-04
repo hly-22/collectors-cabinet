@@ -8,15 +8,14 @@ type ArtistPageProps = {
 
 export default async function ArtistPage({ params }: ArtistPageProps) {
     const { id } = await params;
-    const artistId = Number(id);
 
-    if (Number.isNaN(artistId)) notFound();
+    if (!id) notFound();
 
     const artist = await prisma.artist.findUnique({
-        where: { id: artistId },
+        where: { id },
         include: {
             artworks: {
-                orderBy: { id: "asc" },
+                orderBy: { year: "asc" },
                 select: { id: true, title: true, year: true },
             },
         },
@@ -26,11 +25,7 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
 
     return (
         <ArtistDetailClient
-            artist={{
-                id: artist.id,
-                name: artist.name,
-                description: artist.description,
-            }}
+            artist={artist}
             artworks={artist.artworks}
         />
     )

@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import LanguageToggle from "./LanguageToggle";
 
 type Artist = {
-    id: number,
+    id: string,
     name: string,
     description: string | null,
     artworkCount: number,
@@ -16,12 +16,12 @@ type Artist = {
 type ArtistSideBarProps = {
     artists: Artist[],
     totalCount: number,
-    selectedArtistId: number | null,
-    onSelect: (id: number | null) => void,
+    selectedArtistId: string | null,
+    onSelect: (id: string | null) => void,
     onClose?: () => void,   // mobile close button
 };
 
-function ArtistMenu({ artistId }: { artistId: number }) {
+function ArtistMenu({ artistId }: { artistId: string }) {
 
     const t = useTranslations();
 

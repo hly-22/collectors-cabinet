@@ -17,18 +17,16 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
     setRequestLocale(locale);
     const t = await getTranslations();
 
-    const artworkId = Number(id);
-
-    if (Number.isNaN(artworkId)) {
-        notFound();
-    }
+    if (!id) notFound();
 
     const artwork = await prisma.artwork.findUnique({
-        where: { id: artworkId },
+        where: { id },
         include: { artist: true },
     })
 
     if (!artwork) notFound();
+
+    const mediumText = artwork.medium ?? "-";
 
     const dimensions = artwork.dimensions as
         | { width?: number; height?: number; unit?: string }
@@ -147,7 +145,7 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
 
                     <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
                         <DetailRow label={t("artwork.year")} value={artwork.year} />
-                        <DetailRow label={t("artwork.medium")} value={artwork.medium} />
+                        <DetailRow label={t("artwork.medium")} value={mediumText} />
                         <DetailRow label={t("artwork.dimensions")} value={dimensionsText} />
                         <DetailRow label={t("artwork.status")} value={statusLabel} />
                         <DetailRow label={t("artwork.location")} value={artwork.location ?? "-"} />

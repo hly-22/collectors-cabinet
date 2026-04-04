@@ -5,7 +5,7 @@ import NewArtworkForm from "./NewArtworkForm";
 import { useTranslations } from "next-intl";
 
 type Artist = {
-    id: number;
+    id: string;
     name: string;
     description: string | null;
 };
@@ -40,7 +40,7 @@ export default function NewArtworkWizard({ artists }: NewArtworkWizardProps) {
 
         // Create a local draft artist (id < 0 sentinel) and proceed.
         const draft: Artist = {
-            id: -1,
+            id: "",
             name,
             description: description || null
         };
@@ -94,7 +94,7 @@ export default function NewArtworkWizard({ artists }: NewArtworkWizardProps) {
                     disabled={!selectedArtistId}
                     onClick={() => {
                         const artist = sortedArtists.find(
-                            (a) => a.id === Number(selectedArtistId),
+                            (a) => a.id === selectedArtistId,
                         );
                         if (artist) {
                             setSelectedArtist(artist);

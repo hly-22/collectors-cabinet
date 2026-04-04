@@ -39,7 +39,8 @@
     },
     "toast": {
         "artistDeleted": "{name} has been deleted",
-        "artistDeletedWithArtworks": "{name} and {count, plural, one {# artwork} other {# artworks}} have been deleted"
+        "artistDeletedWithArtworks": "{name} and {count, plural, one {# artwork} other {# artworks}} have been deleted",
+        "artworkDeleted": "{title} has been deleted"
     },
     "artwork": {
         "noImage": "No image",

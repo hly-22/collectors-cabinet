@@ -5,7 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 
 type DeleteArtworkButtonProps = {
-    id: number;
+    id: string;
     title: string;
 };
 

@@ -39,7 +39,8 @@
     },
     "toast": {
         "artistDeleted": "Đã xóa {name}.",
-        "artistDeletedWithArtworks": "Đã xóa {name} và {count} tác phẩm liên quan."
+        "artistDeletedWithArtworks": "Đã xóa {name} và {count} tác phẩm liên quan.",
+        "artworkDeleted": "Đã xoá {title}"
     },
     "artwork": {
         "noImage": "Không có ảnh",

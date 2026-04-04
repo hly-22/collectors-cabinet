@@ -7,13 +7,13 @@ import { useState } from "react";
 import { Edit } from "lucide-react";
 
 type Artist = {
-    id: number;
+    id: string;
     name: string;
     description: string | null;
 };
 
 type Artwork = {
-    id: number;
+    id: string;
     title: string;
     year: string;
 };

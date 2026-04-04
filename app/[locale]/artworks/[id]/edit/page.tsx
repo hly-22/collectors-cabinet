@@ -15,14 +15,10 @@ export default async function EditArtworkPage({ params }: EditArtworkPageProps) 
     setRequestLocale(locale);
     const t = await getTranslations();
 
-    const artworkId = Number(id);
-
-    if (Number.isNaN(artworkId)) {
-        notFound();
-    }
+    if (!id) notFound();
 
     const artwork = await prisma.artwork.findUnique({
-        where: { id: artworkId },
+        where: { id },
         include: { artist: true },
     });
 
@@ -64,9 +60,9 @@ export default async function EditArtworkPage({ params }: EditArtworkPageProps) 
                 >
                     {t("nav.backToArtworks")}
                 </Link>
-                {/* Edit Artwork Form here */}
-                <EditArtworkForm artwork={formArtwork} />
             </div>
+            {/* Edit Artwork Form here */}
+            <EditArtworkForm artwork={formArtwork} />
         </div>
     )
 }

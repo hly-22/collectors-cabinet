@@ -129,7 +129,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
 
             // If artist is a local draft (id < 0), create it first
             let artistId = artist.id;
-            if (artistId < 0) {
+            if (artistId === "") {
                 const res = await fetch("/api/artists", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

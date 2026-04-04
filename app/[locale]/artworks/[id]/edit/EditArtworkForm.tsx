@@ -13,9 +13,9 @@ type Dimensions = {
 }
 
 type Artwork = {
-    id: number,
+    id: string,
     title: string,
-    medium: string,
+    medium: string | null,
     year: string,
     mainImageUrl: string | null,
     additionalImageUrls: string[],
@@ -195,8 +195,8 @@ export default function EditArtworkForm({ artwork }: EditArtworkFormProps) {
             artist={artwork.artist}
             initialData={{
                 title: artwork.title,
-                medium: artwork.medium,
-                year: artwork.year ?? "",
+                medium: artwork.medium ?? "",
+                year: artwork.year,
                 width: dimensions?.width?.toString() ?? "",
                 height: dimensions?.height?.toString() ?? "",
                 unit: (dimensions?.unit as "cm" | "in") ?? "cm",

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Spinner } from "./ui/spinner";
 
 export type Artist = {
-    id: number,
+    id: string,
     name: string,
     description: string | null,
 };

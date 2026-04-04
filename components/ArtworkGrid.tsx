@@ -5,12 +5,12 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 
 type Artist = {
-    id: number,
+    id: string,
     name: string,
 };
 
 type Artwork = {
-    id: number,
+    id: string,
     title: string,
     year: string,
     mainImageUrl: string | null,
@@ -25,7 +25,7 @@ type SortDirection = "asc" | "desc";
 
 type ArtworkGridProps = {
     artworks: Artwork[],
-    selectedArtistId: number | null,
+    selectedArtistId: string | null,
     searchQuery: string,
     sortField: SortField,
     sortDirection: SortDirection,
@@ -98,7 +98,7 @@ export default function ArtworkGrid({
     }
 
     return (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 content-start">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 content-start">
             {sorted.map((artwork, index) => (
                 <Link key={artwork.id} href={{ pathname: '/artworks/[id]', params: { id: artwork.id } }}>
                     <article className="overflow-hidden rounded-xl border bg-white shadow-sm hover:shadow-lg transition-shadow">

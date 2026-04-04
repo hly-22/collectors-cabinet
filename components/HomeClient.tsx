@@ -9,14 +9,14 @@ import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, Menu, Search } from "luci
 import { useTranslations } from "next-intl";
 
 type Artist = {
-    id: number,
+    id: string,
     name: string,
     description: string | null,
     artworkCount: number,
 }
 
 type Artwork = {
-    id: number,
+    id: string,
     title: string,
     year: string,
     mainImageUrl: string | null,
@@ -24,7 +24,7 @@ type Artwork = {
     location: string | null,
     purchasePrice: string | null,
     artist: {
-        id: number,
+        id: string,
         name: string,
     },
 }
@@ -48,7 +48,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
         { value: "ON_LOAN", label: t("status.ON_LOAN") },
     ]
 
-    const [selectedArtistId, setSelectedArtistId] = useState<number | null>(null);
+    const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortField, setSortField] = useState<SortField>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
@@ -56,7 +56,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
     const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    function handleSelectArtist(id: number | null) {
+    function handleSelectArtist(id: string | null) {
         setSelectedArtistId(id);
         setSearchQuery("");
         setSidebarOpen(false);      // close sidebar on mobile after selecting
