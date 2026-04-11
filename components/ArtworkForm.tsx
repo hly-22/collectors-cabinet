@@ -221,7 +221,6 @@ export default function ArtworkForm({
                         value={medium}
                         onChange={(e) => setMedium(e.target.value)}
                         placeholder={t("form.mediumPlaceholder")}
-                        required
                     />
                 </div>
                 <div className="space-y-1">
