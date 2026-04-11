@@ -135,7 +135,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         name: artist.name,
-                        description: artist.description ?? null,
+                        description: artist.description ?? undefined,
                     }),
                 });
 
