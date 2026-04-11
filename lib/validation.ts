@@ -21,7 +21,7 @@ export const CreateArtworkSchema = z.object({
     status: ArtworkStatus.optional(),
     location: z.string().optional(),
     purchasePrice: z.string()
-        .regex(/^\d+(\.\d+)/, "Purchase price must be a valid number")
+        .regex(/^\d+(\.\d{1,2})?$/, "Purchase price must be a valid number")
         .optional(),
     currency: Currency.optional(),
     notes: z.string().optional(),
@@ -40,7 +40,7 @@ export const UpdateArtworkSchema = z.object({
     status: ArtworkStatus.optional(),
     location: z.string().nullable().optional(),
     purchasePrice: z.string()
-        .regex(/^\d+(\.\d+)/, "Purchase price must be a valid number")
+        .regex(/^\d+(\.\d{1,2})?$/, "Purchase price must be a valid number")
         .optional(),
     currency: Currency.optional(),
     notes: z.string().nullable().optional(),
