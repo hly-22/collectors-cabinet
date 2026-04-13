@@ -111,8 +111,13 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                     <div className="flex justify-between">
                         <div>
                             <h1 className="text-3xl font-semibold">{artwork.title}</h1>
-                            <p className=" text-lg text-gray-700 mb-2">
-                                {artwork.artist.name}
+                            <p className=" text-lg text-gray-700 mb-2 hover:underline">
+                                <Link href={{
+                                    pathname: '/artists/[id]',
+                                    params: {id: artwork.artistId}
+                                }}>
+                                    {artwork.artist.name}
+                                </Link>
                             </p>
                             {artwork.certificationUrl && (
                                 <div>
