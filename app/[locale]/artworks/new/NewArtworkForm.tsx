@@ -87,7 +87,38 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
         // // Upload images only at submit time
         // setUploading(true);
 
+        
+
         try {
+
+            // If artist is a local draft (id < 0), create it first
+            let artistId = artist.id;
+            if (artistId === "") {
+                const res = await fetch("/api/artists", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: artist.name,
+                        description: artist.description ?? undefined,
+                    }),
+                });
+
+                if (!res.ok) {
+                    const data = await res.json().catch(() => null);
+                    setErrorMessage(data?.error || t("error.createArtist"));
+                    return;
+                }
+
+                const createdArtist = await res.json();
+                artistId = createdArtist.id;
+
+            }
+
+            // Dimensions handling
+            const dimensions =
+                values.width && values.height
+                    ? { width: Number(values.width), height: Number(values.height), unit: values.unit }
+                    : {};
 
             // Upload main image
             let uploadedMainUrl = values.existingMainImageUrl;
@@ -126,35 +157,6 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                     return;
                 }
             }
-
-            // If artist is a local draft (id < 0), create it first
-            let artistId = artist.id;
-            if (artistId === "") {
-                const res = await fetch("/api/artists", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: artist.name,
-                        description: artist.description ?? undefined,
-                    }),
-                });
-
-                if (!res.ok) {
-                    const data = await res.json().catch(() => null);
-                    setErrorMessage(data?.error || t("error.createArtist"));
-                    return;
-                }
-
-                const createdArtist = await res.json();
-                artistId = createdArtist.id;
-
-            }
-
-            // Dimensions handling
-            const dimensions =
-                values.width && values.height
-                    ? { width: Number(values.width), height: Number(values.height), unit: values.unit }
-                    : {};
 
             // Construct payload and sent to backend
             const payload = {

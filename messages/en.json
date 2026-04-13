@@ -98,7 +98,6 @@
         "dimensions": "Dimensions",
         "width": "Width",
         "height": "Height",
-        "dimensionsNote": "Optional. If you fill width and height, they’ll be stored as a JSON object.",
         "certification": "Certification",
         "currentCertification": "Current file",
         "mainImage": "Main Image",
@@ -119,6 +118,8 @@
         "chooseFiles": "Choose Files",
         "acceptedFormatFile": "pdf, jpg, png, jpeg",
         "acceptedFormatImage": "jpg, png, jpeg",
-        "pdfNotAllowed": "Please select an image file, not a PDF."
+        "pdfNotAllowed": "Please select an image file, not a PDF.",
+        "certificationRequired": "Certificaion is required",
+        "mainImageRequired": "Main image is required"
     }
 }

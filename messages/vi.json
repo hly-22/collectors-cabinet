@@ -98,7 +98,6 @@
         "dimensions": "Kích thước",
         "width": "Chiều rộng",
         "height": "Chiều cao",
-        "dimensionsNote": "Tùy chọn. Nếu bạn điền chiều rộng và chiều cao, chúng sẽ được lưu trữ dưới dạng đối tượng JSON.",
         "certification": "Chứng nhận",
         "currentCertification": "File hiện tại",
         "mainImage": "Ảnh chính",
@@ -119,6 +118,8 @@
         "chooseFiles": "Chọn các file",
         "acceptedFormatFile": "pdf, jpg, png, jpeg",
         "acceptedFormatImage": "jpg, png, jpeg",
-        "pdfNotAllowed": "Vui lòng chọn file ảnh, không phải PDF."
+        "pdfNotAllowed": "Vui lòng chọn file ảnh, không phải PDF.",
+        "certificationRequired": "Vui lòng tải chứng nhận lên.",
+        "mainImageRequired": "Vui lòng tải ảnh chính lên."
     }
 }

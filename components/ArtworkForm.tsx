@@ -110,6 +110,8 @@ export default function ArtworkForm({
     const [existingAdditionalUrls, setExistingAdditionalUrls] = useState<string[]>(initialData?.additionalImageUrls ?? []);
     const [newAdditionalFiles, setNewAdditionalFiles] = useState<File[]>([]);
     const [additionalImagesError, setAdditionalImagesError] = useState<string | null>(null);
+    
+    const [validationError, setValidationError] = useState<string>("");
 
     const statusOptions = [
         { value: "IN_HOME", label: t("status.IN_HOME") },
@@ -125,6 +127,25 @@ export default function ArtworkForm({
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        // Validation for certification and main image during add mode
+        if (!isEditMode) {
+            const errors: string[] = [];
+
+            if (!certificationFile) {
+                errors.push(t("form.certificationRequired"));
+            }
+
+            if (!mainImageFile) {
+                errors.push(t("form.mainImageRequired"));
+            }
+
+            if (errors.length > 0) {
+                setValidationError(errors.join(" "));
+                return;
+            }
+        }
+
         onSubmit({
             title,
             medium,
@@ -203,6 +224,13 @@ export default function ArtworkForm({
                 </div>
             )}
 
+            {/* Validation error message */}
+            {validationError && (
+                <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+                    {validationError}
+                </div>
+            )}
+
             {/* Title */}
             <div className="space-y-1">
                 <label className="block text-sm font-medium">{t("form.title")}</label>
@@ -210,6 +238,7 @@ export default function ArtworkForm({
                     className="w-full rounded border px-3 py-2 text-sm"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    required
                 />
             </div>
             {/* Medium & Year */}
@@ -230,6 +259,7 @@ export default function ArtworkForm({
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
                         placeholder="1889"
+                        pattern="\d{4}"
                         required
                     />
                 </div>
@@ -243,9 +273,9 @@ export default function ArtworkForm({
                         type="number"
                         min="0"
                         step="0.1"
-                        placeholder={t("form.width")}
-                        value={width}
-                        onChange={(e) => setWidth(e.target.value)}
+                        placeholder={t("form.height")}
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
                     />
                     x
                     <input
@@ -253,9 +283,9 @@ export default function ArtworkForm({
                         type="number"
                         min="0"
                         step="0.1"
-                        placeholder={t("form.height")}
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)}
+                        placeholder={t("form.width")}
+                        value={width}
+                        onChange={(e) => setWidth(e.target.value)}
                     />
                     <select
                         className="w-20 rounded border px-3 py-2 text-sm"
@@ -265,9 +295,6 @@ export default function ArtworkForm({
                         <option value="cm">cm</option>
                         <option value="in">in</option>
                     </select>
-                    {/* <p className="text-xs text-gray-500">
-                        {t("form.dimensionsNote")}
-                    </p> */}
                 </div>
             </div>
 
