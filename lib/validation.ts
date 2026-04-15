@@ -30,7 +30,7 @@ export const CreateArtworkSchema = z.object({
 
 export const UpdateArtworkSchema = z.object({
     title: z.string().min(1, "Title is required"),
-    medium: z.string().nullable().optional(),
+    medium: z.string().optional(),
     dimensions: DimensionsSchema.optional(),
     year: z.string()
         .min(1, "Year is required")
