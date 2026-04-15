@@ -35,7 +35,7 @@ export const UpdateArtworkSchema = z.object({
     year: z.string()
         .min(1, "Year is required")
         .regex(/^\d{1,4}$/, "Year must be a number"),
-    description: z.string().optional(),
+    description: z.string().nullable().optional(),
     mainImageUrl: z.url().nullable().optional(),
     additionalImageUrls: z.array(z.url()).optional(),
     certificationUrl: z.url().optional(),

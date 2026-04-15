@@ -53,6 +53,7 @@
         "location": "Vị trí",
         "purchasePrice": "Giá mua",
         "notes": "Ghi chú",
+        "description":"Mô tả",
         "viewCertification": "Xem chứng nhận"
     },
     "artist": {

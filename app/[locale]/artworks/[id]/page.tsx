@@ -26,7 +26,7 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
 
     if (!artwork) notFound();
 
-    const mediumText = artwork.medium ?? "-";
+    const mediumText = artwork.medium === "" ? "-" : artwork.medium ? artwork.medium : "-";
 
     const dimensions = artwork.dimensions as
         | { width?: number; height?: number; unit?: string }
@@ -156,6 +156,15 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                         <DetailRow label={t("artwork.location")} value={artwork.location ?? "-"} />
                         <DetailRow label={t("artwork.purchasePrice")} value={priceText} />
                     </div>
+
+                    {artwork.description && (
+                        <div className="mt-4">
+                            <h2 className="text-xs uppercase tracking-wide text-gray-500">{t("artwork.description")}</h2>
+                            <p className="whitespace-pre-line text-sm text-gray-800">
+                                {artwork.description}
+                            </p>
+                        </div>
+                    )}
 
                     {artwork.notes && (
                         <div className="mt-4">

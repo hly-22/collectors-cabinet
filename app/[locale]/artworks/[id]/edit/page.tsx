@@ -32,6 +32,7 @@ export default async function EditArtworkPage({ params }: EditArtworkPageProps) 
         title: artwork.title,
         medium: artwork.medium,
         year: artwork.year ?? "",
+        description: artwork.description ?? null,
         mainImageUrl: artwork.mainImageUrl ?? null,
         additionalImageUrls: artwork.additionalImageUrls as string[],
         certificationUrl: artwork.certificationUrl ?? null,

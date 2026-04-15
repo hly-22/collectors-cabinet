@@ -87,8 +87,6 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
         // // Upload images only at submit time
         // setUploading(true);
 
-        
-
         try {
 
             // If artist is a local draft (id < 0), create it first
@@ -164,6 +162,7 @@ export default function NewArtworkForm({ artist, onChangeArtist }: NewArtworkFor
                 artistId,
                 medium: values.medium,
                 year: values.year,
+                description: values.description || undefined,
                 mainImageUrl: uploadedMainUrl,
                 certificationUrl: uploadedCertUrl,
                 dimensions,

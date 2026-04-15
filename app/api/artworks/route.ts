@@ -45,6 +45,7 @@ export async function POST(req: Request) {
                 medium: data.medium,
                 dimensions: data.dimensions ?? {},
                 year: data.year,
+                description: data.description ?? null,
                 mainImageUrl: data.mainImageUrl,
                 additionalImageUrls: data.additionalImageUrls ?? [],
                 certificationUrl: data.certificationUrl,

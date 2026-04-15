@@ -15,6 +15,7 @@ export type ArtworkFormValues = {
     title: string,
     medium: string,
     year: string,
+    description: string,
     width: string,
     height: string,
     unit: "cm" | "in",
@@ -40,6 +41,7 @@ export type ArtworkFormInitialData = {
     title?: string,
     medium?: string,
     year?: string,
+    description?: string,
     width?: string,
     height?: string,
     unit?: "cm" | "in",
@@ -86,6 +88,7 @@ export default function ArtworkForm({
     const [title, setTitle] = useState(initialData?.title ?? "");
     const [medium, setMedium] = useState(initialData?.medium ?? "");
     const [year, setYear] = useState(initialData?.year ?? "");
+    const [description, setDescription] = useState(initialData?.description ?? "");
     const [width, setWidth] = useState(initialData?.width ?? "");
     const [height, setHeight] = useState(initialData?.height ?? "");
     const [unit, setUnit] = useState<"cm" | "in">(initialData?.unit ?? "cm");
@@ -150,6 +153,7 @@ export default function ArtworkForm({
             title,
             medium,
             year,
+            description,
             width,
             height,
             unit,
@@ -239,6 +243,17 @@ export default function ArtworkForm({
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
+                />
+            </div>
+            {/* Description */}
+            <div className="space-y-1">
+                <label className="block text-sm font-medium">{t("form.description")}</label>
+                <textarea
+                    className="w-full rounded border px-3 py-2 text-sm"
+                    rows={1}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="..."
                 />
             </div>
             {/* Medium & Year */}

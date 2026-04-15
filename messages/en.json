@@ -52,6 +52,7 @@
         "status": "Status",
         "location": "Location",
         "purchasePrice": "Purchase price",
+        "description":"Description",
         "notes": "Notes",
         "viewCertification": "View certification"
     },

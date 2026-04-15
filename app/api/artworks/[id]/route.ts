@@ -75,6 +75,7 @@ export async function PUT(
                 title: data.title,
                 medium: data.medium ?? existing.medium,
                 year: data.year ?? existing.year,
+                description: data.description !== undefined ? data.description : existing.description,
                 mainImageUrl: data.mainImageUrl !== undefined ? data.mainImageUrl : existing.mainImageUrl,
                 certificationUrl: data.certificationUrl ?? existing.certificationUrl,
                 additionalImageUrls: data.additionalImageUrls ?? existing.additionalImageUrls,
