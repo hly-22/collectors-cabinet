@@ -94,6 +94,7 @@
         "title": "Tên tác phẩm",
         "medium": "Chất liệu",
         "year": "Năm",
+        "description": "Mô tả (tuỳ chọn)",
         "mediumPlaceholder": "Sơn dầu, màu nước, v.v.",
         "dimensions": "Kích thước",
         "width": "Chiều rộng",

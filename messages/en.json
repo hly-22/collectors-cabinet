@@ -94,6 +94,7 @@
         "title": "Title",
         "medium": "Medium",
         "year": "Year",
+        "description": "Description (optional)",
         "mediumPlaceholder": "Oil on canvas, watercolor, etc.",
         "dimensions": "Dimensions",
         "width": "Width",
