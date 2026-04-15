@@ -21,6 +21,7 @@ model Artwork {
   medium              String?
   dimensions          Json? // { width: number, height: number, unit: "cm" | "in" }
   year                String
+  description         String?
   mainImageUrl        String?
   additionalImageUrls String[]      @default([])
   certificationUrl    String

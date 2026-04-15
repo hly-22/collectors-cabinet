@@ -15,6 +15,7 @@ export const CreateArtworkSchema = z.object({
     year: z.string()
         .min(1, "Year is required")
         .regex(/^\d{1,4}$/, "Year must be a number"),
+    description: z.string().optional(),
     mainImageUrl: z.url().optional(),
     additionalImageUrls: z.array(z.url()).optional(),
     certificationUrl: z.url(),
@@ -29,11 +30,12 @@ export const CreateArtworkSchema = z.object({
 
 export const UpdateArtworkSchema = z.object({
     title: z.string().min(1, "Title is required"),
-    medium: z.string().optional(),
+    medium: z.string().nullable().optional(),
     dimensions: DimensionsSchema.optional(),
     year: z.string()
         .min(1, "Year is required")
         .regex(/^\d{1,4}$/, "Year must be a number"),
+    description: z.string().optional(),
     mainImageUrl: z.url().nullable().optional(),
     additionalImageUrls: z.array(z.url()).optional(),
     certificationUrl: z.url().optional(),
