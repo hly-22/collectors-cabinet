@@ -1,5 +1,4 @@
 import { createClient } from "../supabase/client";
-import { createUserIfNotExists } from "./user";
 
 const supabase = createClient();
 
@@ -68,14 +67,6 @@ export async function signUp(email: string, password: string) {
     if (error) {
         console.error('Signup error:', error);
         throw new Error(error.message);
-    }
-
-    // Sync with database
-    if (data.user) {
-        await createUserIfNotExists({
-            id: data.user.id,
-            email: data.user.email ?? undefined,
-        })
     }
 
     return data;
