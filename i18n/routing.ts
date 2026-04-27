@@ -20,5 +20,8 @@ export const routing = defineRouting({
         '/artists/[id]/edit': {
             vi: '/nghe-si/[id]/chinh-sua'
         },
+        '/login': {
+            vi: '/dang-nhap'
+        }
     }
 })
