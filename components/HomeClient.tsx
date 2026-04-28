@@ -32,12 +32,13 @@ type Artwork = {
 type HomeClientProps = {
     artists: Artist[],
     artworks: Artwork[],
+    isManager: boolean,
 }
 
 type SortField = "title" | "year" | "price" | null;
 type SortDirection = "asc" | "desc";
 
-export default function HomeClient({ artists, artworks }: HomeClientProps) {
+export default function HomeClient({ artists, artworks, isManager }: HomeClientProps) {
 
     const t = useTranslations();
 
@@ -114,6 +115,7 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                     selectedArtistId={selectedArtistId}
                     onSelect={handleSelectArtist}
                     onClose={() => setSidebarOpen(false)}
+                    isManager={isManager}
                 />
             </div>
 
@@ -145,12 +147,15 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                                 className="w-full rounded-md border bg-gray-50 py-1.5 pl-8 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
                             />
                         </div>
-                        <Link
-                            href="/artworks/new"
-                            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
-                        >
-                            + {t("nav.add")}
-                        </Link>
+                        {isManager && (
+                            <Link
+                                href="/artworks/new"
+                                className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
+                            >
+                                + {t("nav.add")}
+                            </Link>
+
+                        )}
                     </div>
                     {/* Row 2: status filter + add artwork */}
                     <div className="flex justify-center gap-2 py-2 bg-gray-50">
@@ -352,12 +357,18 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
 
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link
-                            href="/artworks/new"
-                            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
-                        >
-                            + {t("nav.addArtwork")}
-                        </Link>
+                        {isManager ? (
+                            <>
+                                <Link
+                                    href="/artworks/new"
+                                    className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
+                                >
+                                    + {t("nav.addArtwork")}
+                                </Link>
+                            </>
+                        ) : (
+                            <div></div>
+                        )}
                     </div>
                 </header>
 
@@ -372,8 +383,8 @@ export default function HomeClient({ artists, artworks }: HomeClientProps) {
                         selectedStatuses={selectedStatuses}
                     />
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 
 }

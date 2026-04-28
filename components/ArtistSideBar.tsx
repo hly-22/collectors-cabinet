@@ -4,7 +4,7 @@ import { MoreVertical, Search, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import LanguageToggle from "./LanguageToggle";
+import LogoutButton from "./LogoutButton";
 
 type Artist = {
     id: string,
@@ -19,6 +19,7 @@ type ArtistSideBarProps = {
     selectedArtistId: string | null,
     onSelect: (id: string | null) => void,
     onClose?: () => void,   // mobile close button
+    isManager: boolean,
 };
 
 function ArtistMenu({ artistId }: { artistId: string }) {
@@ -77,6 +78,7 @@ export default function ArtistSideBar({
     selectedArtistId,
     onSelect,
     onClose,
+    isManager,
 }: ArtistSideBarProps) {
 
     const t = useTranslations();
@@ -181,10 +183,22 @@ export default function ArtistSideBar({
                     ))
                 )}
             </nav>
-            {/* Footer: language toggle */}
-            <div className="p-3 flex justify-end">
-                <LanguageToggle />
-            </div>
+            {/* Footer: manager login/logout */}
+            {isManager ? (
+                <div className="p-3 flex justify-between items-center">
+                    <span className="px-2 font-light italic">Hello, user!</span>
+                    <LogoutButton />
+                </div>
+            ) : (
+                <div className="p-3 flex justify-end">
+                    <Link
+                        href="/login"
+                        className="px-4 py-2 text-sm font-light hover:underline transition-colors"
+                    >
+                        {t("nav.login")}
+                    </Link>
+                </div>
+            )}
         </aside>
     )
 }

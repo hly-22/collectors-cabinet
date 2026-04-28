@@ -1,7 +1,13 @@
 import HomeClient from "@/components/HomeClient";
 import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
+
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const isManager = !!data?.claims;
+
   const [artworks, artists] = await Promise.all([
     prisma.artwork.findMany({
       include: { artist: true },
@@ -26,6 +32,7 @@ export default async function Home() {
     <HomeClient
       artists={artistsWithCount}
       artworks={serializedArtworks}
+      isManager={isManager}
     />
   )
 }
