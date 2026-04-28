@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
+import LanguageToggle from "@/components/LanguageToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +50,9 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           {children}
+          <div className="fixed bottom-4 right-4 z-50">
+            <LanguageToggle />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
