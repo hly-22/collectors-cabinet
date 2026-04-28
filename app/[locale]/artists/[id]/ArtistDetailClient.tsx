@@ -21,9 +21,10 @@ type Artwork = {
 type ArtistDetailClientProps = {
     artist: Artist;
     artworks: Artwork[];
+    isManager: boolean;
 };
 
-export default function ArtistDetailClient({ artist, artworks }: ArtistDetailClientProps) {
+export default function ArtistDetailClient({ artist, artworks, isManager }: ArtistDetailClientProps) {
 
     const t = useTranslations();
 
@@ -168,7 +169,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                     {/* Edit/Save/Cancel button */}
                     <div className="flex items-center gap-2 ml-4 shrink-0">
 
-                        {!isEditing && (
+                        {!isEditing && isManager && (
                             <button
                                 type="button"
                                 onClick={() => setIsEditing(true)}
@@ -238,7 +239,7 @@ export default function ArtistDetailClient({ artist, artworks }: ArtistDetailCli
                     )}
                 </div>
 
-                {!isEditing && (
+                {!isEditing && isManager && (
                     <div className="flex justify-center gap-4">
                         <button
                             type="button"
