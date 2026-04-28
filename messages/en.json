@@ -8,7 +8,8 @@
         "add": "Add",
         "view": "View",
         "noArtistsFound": "No artists found",
-        "backToArtworks": "← Back to artworks"
+        "backToArtworks": "← Back to artworks",
+        "login": "Login"
     },
     "actions": {
         "edit": "Edit",

@@ -8,7 +8,8 @@
         "add": "Thêm",
         "view": "Xem",
         "noArtistsFound": "Không tìm thấy nghệ sĩ",
-        "backToArtworks": "← Quay lại"
+        "backToArtworks": "← Quay lại",
+        "login": "Đăng nhập"
     },
     "actions": {
         "edit": "Chỉnh sửa",
