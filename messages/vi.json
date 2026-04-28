@@ -9,7 +9,8 @@
         "view": "Xem",
         "noArtistsFound": "Không tìm thấy nghệ sĩ",
         "backToArtworks": "← Quay lại",
-        "login": "Đăng nhập"
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất"
     },
     "actions": {
         "edit": "Chỉnh sửa",
