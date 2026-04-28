@@ -5,6 +5,7 @@ import DeleteArtworkButton from "./DeleteArtworkButton";
 import AdditionalImagesGallery from "./AdditionalImagesGallery";
 import MainImageDisplay from "./MainImageDisplay";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
 
 type ArtworkPageProps = {
     params: Promise<{ id: string, locale: string }>;
@@ -18,6 +19,10 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
     const t = await getTranslations();
 
     if (!id) notFound();
+
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getClaims();
+    const isManager = !!data?.claims;
 
     const artwork = await prisma.artwork.findUnique({
         where: { id },
@@ -114,7 +119,7 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                             <p className=" text-lg text-gray-700 mb-2 hover:underline">
                                 <Link href={{
                                     pathname: '/artists/[id]',
-                                    params: {id: artwork.artistId}
+                                    params: { id: artwork.artistId }
                                 }}>
                                     {artwork.artist.name}
                                 </Link>
@@ -132,20 +137,22 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                                 </div>
                             )}
                         </div>
-                        <div className="hidden md:flex gap-2 items-start">
-                            <Link href={{
-                                pathname: '/artworks/[id]/edit',
-                                params: { id: artwork.id }
-                            }}>
-                                <button
-                                    type="button"
-                                    className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                >
-                                    {t("actions.edit")}
-                                </button>
-                            </Link>
-                            <DeleteArtworkButton id={artwork.id} title={artwork.title} />
-                        </div>
+                        {isManager && (
+                            <div className="hidden md:flex gap-2 items-start">
+                                <Link href={{
+                                    pathname: '/artworks/[id]/edit',
+                                    params: { id: artwork.id }
+                                }}>
+                                    <button
+                                        type="button"
+                                        className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                                    >
+                                        {t("actions.edit")}
+                                    </button>
+                                </Link>
+                                <DeleteArtworkButton id={artwork.id} title={artwork.title} />
+                            </div>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
@@ -154,7 +161,7 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                         <DetailRow label={t("artwork.dimensions")} value={dimensionsText} />
                         <DetailRow label={t("artwork.status")} value={statusLabel} />
                         <DetailRow label={t("artwork.location")} value={artwork.location ?? "-"} />
-                        <DetailRow label={t("artwork.purchasePrice")} value={priceText} />
+                        {isManager && <DetailRow label={t("artwork.purchasePrice")} value={priceText} />}
                     </div>
 
                     {artwork.description && (
