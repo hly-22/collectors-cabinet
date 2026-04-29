@@ -182,20 +182,22 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
                         </div>
                     )}
 
-                    <div className="flex md:hidden mt-10 gap-2 ">
-                        <Link href={{
-                            pathname: '/artworks/[id]/edit',
-                            params: { id: artwork.id }
-                        }}>
-                            <button
-                                type="button"
-                                className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                            >
-                                {t("actions.edit")}
-                            </button>
-                        </Link>
-                        <DeleteArtworkButton id={artwork.id} title={artwork.title} />
-                    </div>
+                    {isManager && (
+                        <div className="flex md:hidden mt-10 gap-2 ">
+                            <Link href={{
+                                pathname: '/artworks/[id]/edit',
+                                params: { id: artwork.id }
+                            }}>
+                                <button
+                                    type="button"
+                                    className="rounded-md border px-4 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                                >
+                                    {t("actions.edit")}
+                                </button>
+                            </Link>
+                            <DeleteArtworkButton id={artwork.id} title={artwork.title} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
