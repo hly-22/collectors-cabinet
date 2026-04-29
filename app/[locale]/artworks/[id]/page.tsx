@@ -76,16 +76,6 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-8">
-            {/* Breadcrumb / back link */}
-            <div className="flex mb-4">
-                <Link
-                    href="/"
-                    className="text-sm text-blue-600 hover:underline"
-                >
-                    {t("nav.backToArtworks")}
-                </Link>
-            </div>
-
             <div className="grid gap-8 md:grid-cols-[2fr_3fr] items-start">
                 {/* Left: main image + additional images */}
                 <div className="space-y-4">

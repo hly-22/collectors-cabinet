@@ -1,9 +1,6 @@
 export default function ArtistLoading() {
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
-            {/* Back link skeleton */}
-            <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-6" />
-
             <div className="rounded-lg border bg-white p-6 space-y-6">
                 {/* Name + buttons */}
                 <div className="flex items-start justify-between">

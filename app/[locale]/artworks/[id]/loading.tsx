@@ -1,9 +1,6 @@
 export default function ArtworkLoading() {
     return (
         <div className="max-w-5xl mx-auto px-4 py-8">
-            {/* Back link skeleton */}
-            <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-4" />
-
             <div className="grid gap-8 md:grid-cols-[2fr_3fr] items-start">
                 {/* Left: image skeleton */}
                 <div className="space-y-4">

@@ -115,15 +115,6 @@ export default function ArtistDetailClient({ artist, artworks, isManager }: Arti
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
-            {/* Back link */}
-            <div className="mb-6">
-                <Link
-                    href="/"
-                    className="text-sm text-blue-600 hover:underline">
-                    {t("nav.backToArtworks")}
-                </Link>
-            </div>
-
             {/* Artist Info */}
             <div className="rounded-lg border bg-white p-6 space-y-6 justify-center">
                 {isEditing && (

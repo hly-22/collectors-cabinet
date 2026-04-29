@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import EditArtworkForm from "./EditArtworkForm";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -51,17 +50,6 @@ export default async function EditArtworkPage({ params }: EditArtworkPageProps) 
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-8">
-            <div className="mb-6">
-                <Link
-                    href={{
-                        pathname: '/artworks/[id]',
-                        params: { id: artwork.id }
-                    }}
-                    className="text-sm text-blue-600 hover:underline"
-                >
-                    {t("nav.backToArtworks")}
-                </Link>
-            </div>
             {/* Edit Artwork Form here */}
             <EditArtworkForm artwork={formArtwork} />
         </div>
