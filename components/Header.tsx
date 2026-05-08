@@ -1,7 +1,13 @@
 import { Link } from "@/i18n/navigation";
-import LanguageToggle from "./LanguageToggle";
+import { createClient } from "@/lib/supabase/server";
+import HeaderActions from "./HeaderActions";
 
-export default function Header() {
+export default async function Header() {
+
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getClaims();
+    const isManager = !!data?.claims;
+
     return (
         <header className="sticky top-0 z-40 border-b bg-white px-4 py-3 flex items-center justify-between">
             <Link
@@ -10,7 +16,7 @@ export default function Header() {
             >
                 Collector&apos;s Cabinet
             </Link>
-            <LanguageToggle />
+            <HeaderActions isManager={isManager} />
         </header>
     )
 }

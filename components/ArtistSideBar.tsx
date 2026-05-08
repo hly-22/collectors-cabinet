@@ -1,10 +1,9 @@
 "use client";
 
 import { MoreVertical, Search, X } from "lucide-react";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { logout } from "@/lib/auth/auth";
 
 type Artist = {
     id: string,
@@ -19,7 +18,6 @@ type ArtistSideBarProps = {
     selectedArtistId: string | null,
     onSelect: (id: string | null) => void,
     onClose?: () => void,   // mobile close button
-    isManager: boolean,
 };
 
 function ArtistMenu({ artistId }: { artistId: string }) {
@@ -78,20 +76,13 @@ export default function ArtistSideBar({
     selectedArtistId,
     onSelect,
     onClose,
-    isManager,
 }: ArtistSideBarProps) {
-    const router = useRouter();
 
     const t = useTranslations();
 
     const [search, setSearch] = useState("");
 
     const filtered = artists.filter((a) => a.name.toLowerCase().includes(search.toLowerCase()));
-
-    const handleLogout = async () => {
-        await logout();
-        router.push({ pathname: '/' });
-    }
 
     return (
         <aside className="w-64 shrink-0 flex flex-col h-full border-r bg-white">
@@ -186,27 +177,6 @@ export default function ArtistSideBar({
                     ))
                 )}
             </nav>
-            {/* Footer: manager login/logout */}
-            {isManager ? (
-                <div className="p-3 flex justify-between items-center">
-                    <span className="px-2 font-light italic">Hello, user!</span>
-                    <button
-                        onClick={handleLogout}
-                        className="px-4 py-2 text-sm font-light hover:underline transition-colors"
-                    >
-                        {t("nav.logout")}
-                    </button>
-                </div>
-            ) : (
-                <div className="p-3 flex justify-end">
-                    <Link
-                        href="/login"
-                        className="px-4 py-2 text-sm font-light hover:underline transition-colors"
-                    >
-                        {t("nav.login")}
-                    </Link>
-                </div>
-            )}
         </aside>
     )
 }

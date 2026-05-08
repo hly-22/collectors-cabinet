@@ -115,7 +115,6 @@ export default function HomeClient({ artists, artworks, isManager }: HomeClientP
                     selectedArtistId={selectedArtistId}
                     onSelect={handleSelectArtist}
                     onClose={() => setSidebarOpen(false)}
-                    isManager={isManager}
                 />
             </div>
 
