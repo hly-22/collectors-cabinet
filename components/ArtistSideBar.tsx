@@ -97,10 +97,7 @@ export default function ArtistSideBar({
         <aside className="w-64 shrink-0 flex flex-col h-full border-r bg-white">
             {/* Header */}
             <div className="p-4 border-b">
-                <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400">
-                        {t("nav.artists")}
-                    </h2>
+                <div className="flex items-center justify-end mb-2">
                     {/* Close button on mobile only */}
                     {onClose && (
                         <button
