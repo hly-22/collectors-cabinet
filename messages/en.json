@@ -10,7 +10,8 @@
         "noArtistsFound": "No artists found",
         "backToArtworks": "← Back to artworks",
         "login": "Login",
-        "logout": "Logout"
+        "logout": "Logout",
+        "manager": "Manager"
     },
     "actions": {
         "edit": "Edit",

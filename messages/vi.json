@@ -10,7 +10,8 @@
         "noArtistsFound": "Không tìm thấy nghệ sĩ",
         "backToArtworks": "← Quay lại",
         "login": "Đăng nhập",
-        "logout": "Đăng xuất"
+        "logout": "Đăng xuất",
+        "manager": "Quản lý"
     },
     "actions": {
         "edit": "Chỉnh sửa",
