@@ -106,7 +106,7 @@ export default function HomeClient({ artists, artworks, isManager }: HomeClientP
 
             {/* Left: Artist Sidebar */}
             <div className={`
-                fixed inset-y-0 left-0 z-30 transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto
+                fixed top-13.5 bottom-0 left-0 z-30 transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:inset-y-0
                 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}    
             `}>
                 <ArtistSideBar
@@ -124,7 +124,7 @@ export default function HomeClient({ artists, artworks, isManager }: HomeClientP
 
                 {/* MOBILE HEADER (hidden on desktop) */}
                 <header className="lg:hidden flex flex-col bg-white shrink-0">
-                    {/* Row 1: hamburger + search + language */}
+                    {/* Row 1: hamburger + search */}
                     <div className="flex items-center gap-2 px-4 py-3 border-b">
                         <button
                             type="button"
